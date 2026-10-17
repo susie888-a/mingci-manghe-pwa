@@ -500,7 +500,7 @@ document.addEventListener('change', (event) => {
   if (filter) { state.filters[filter] = event.target.value; persist(); render(); }
 });
 
-if ('serviceWorker' in navigator) window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js').catch(() => {}));
+if ('serviceWorker' in navigator) window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(() => {}));
 
 state.answerVisible = false;
 render();

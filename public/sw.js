@@ -1,5 +1,6 @@
-const CACHE = 'shenzhen-noun-pwa-v5';
-const CORE = ['/', '/index.html', '/manifest.webmanifest'];
+const CACHE = 'shenzhen-noun-pwa-v6';
+const BASE = new URL('./', self.location).pathname;
+const CORE = [BASE, `${BASE}index.html`, `${BASE}manifest.webmanifest`];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(CORE)));
@@ -17,5 +18,5 @@ self.addEventListener('fetch', (event) => {
     const copy = response.clone();
     caches.open(CACHE).then((cache) => cache.put(event.request, copy));
     return response;
-  }).catch(() => caches.match('/'))));
+  }).catch(() => caches.match(BASE))));
 });
