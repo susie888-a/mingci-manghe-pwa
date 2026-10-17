@@ -1,0 +1,12 @@
+{
+  "name": "名词盲盒 · 新闻传播背诵 PWA",
+  "short_name": "名词盲盒",
+  "description": "深圳大学新闻传播名词解释背诵与测试应用",
+  "lang": "zh-CN",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f8f5ff",
+  "theme_color": "#7456e8",
+  "orientation": "any",
+  "icons": []
+}
