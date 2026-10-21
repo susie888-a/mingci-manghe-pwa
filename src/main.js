@@ -1,9 +1,11 @@
 import './styles.css';
+import { expandedGlossary } from './data/expanded-glossary.js';
 
 const sourceNotes = [
   { title: '题干与概念确认', text: '深圳大学 440 历年真题 OCR 提炼，覆盖 2020—2026 已确认简答概念。', status: '核心可用' },
   { title: '考点脉络', text: '深圳大学近年考点提炼_2020-2026.md，按高频主轴与参考书整理。', status: '已整理' },
-  { title: '扫描资料', text: '27秃头所名词解释三份扫描 PDF，尚未完整 OCR，当前只作为待校对参考，不代表已导入全部 300 词。', status: '待校对' },
+  { title: '扩展词条', text: '已合并《传播学+网传名词解释.docx》整理词条，按定义—机制—例子—边界压缩改写；扩展卡仅用于词卡与模拟复习。', status: '已合并' },
+  { title: '扫描资料', text: '27秃头所名词解释三份扫描 PDF，尚未完整 OCR，当前仍作为待校对参考。', status: '待校对' },
   { title: '模拟题方向', text: '模拟题参考广州大学、广东外语外贸大学真题的命题内容与组织方式，具体表述已重新组织，不对应任何学校原题或年份。', status: '模拟改编' }
 ];
 
@@ -15,7 +17,7 @@ const makeCard = (id, term, topic, level, yearList, prompt, definition, mechanis
   id, term, topic, level, years: yearList, prompt, answer: { definition, mechanism, example, boundary }, source: status.startsWith('扩展知识点') ? '扩展知识点：参考深圳大学及其他高校真题命题方向整理' : 'shenzhen_exam_extracted.txt / 深圳大学近年考点提炼_2020-2026.md', sourceStatus: status
 });
 
-const cards = [
+const baseCards = [
   makeCard('reliability-validity', '信度与效度', '研究方法', '重点', ['2024', '2026'], '请分别简述信度与效度；为什么二者之间存在紧张关系？', '信度是测量结果的稳定性、一致性；效度是测量是否真正测到了研究想测的概念。', '信度关注重复测量是否一致，效度关注概念化、指标与现实对象之间是否匹配。工具可能很稳定却一直测偏，因此高信度不必然带来高效度。', '问卷每次都把“刷短视频时长”测得很一致，但它未必能代表“信息茧房程度”，这就是可靠但不准确。', '作答要写出二者张力，并说明内容效度、构念效度或效标效度等检验思路。'),
   makeCard('computational-ad', '计算广告', '广告学', '重点', ['2026'], '简述计算广告。', '计算广告是以用户、内容、场景和广告目标数据为基础，通过算法完成广告匹配、竞价、投放与优化的数字广告形态。', '系统持续采集与处理用户行为，预测点击或转化概率，再通过竞价与排序把合适广告送达合适场景，并以反馈数据迭代。', '信息流广告根据用户近期搜索、浏览和互动行为动态变化，广告主按展示、点击或转化目标进行投放。', '效率提升伴随隐私、画像偏见、黑箱、操纵与信息茧房风险，需写透明度、最小必要收集与用户选择权。'),
   makeCard('panel-study', '面板研究', '研究方法', '重点', ['2026'], '简述面板研究。', '面板研究是对同一批研究对象在多个时间点进行重复测量，以观察个体变化、稳定性和时间序列关系的纵向研究。', '通过固定样本、统一指标和多轮追踪，比较同一对象前后的态度、媒介使用或行为变化，也能控制部分个体差异。', '连续追踪同一组大学生在备考期间的短视频使用、压力感和学习投入。', '要注意样本流失、面板条件化与隐私伦理，不能把相关变化直接当成因果关系。'),
@@ -141,6 +143,8 @@ const cards = [
   makeCard('extension-international-discourse-power', '国际话语权', '国际传播', '进阶', ['扩展'], '简述国际话语权的内涵及其形成条件。', '国际话语权是国家、组织或群体在国际议题中提出议程、解释事实、塑造意义并影响规则讨论的能力。', '它依赖现实实力、可信叙事、专业知识、媒介渠道、跨文化表达、国际合作和长期信誉，而非单纯增加信息输出。', '围绕全球公共议题，中国机构通过权威数据、国际协作和多语种解释参与规则与舆论讨论。', '话语权不能靠口号或流量强行获得，必须以事实、行动、开放对话和对他者经验的尊重为基础。', '扩展知识点｜参考深圳大学及其他高校真题命题方向整理')
 ];
 
+const cards = [...baseCards, ...expandedGlossary];
+
 const simulationCards = [
   makeCard('sim-generative-ai-governance', '生成式人工智能内容治理', '网络传播', '重点', ['模拟'], '模拟题｜参考高校真题命题方式改编：简述生成式人工智能介入新闻内容生产后，需要关注哪些治理问题？', '生成式人工智能内容治理，是围绕模型训练、内容生成、传播分发和责任追溯建立的规则、技术与伦理安排。', '治理需要同时处理事实准确性、版权与数据来源、深度合成标识、偏见、隐私、平台审核和责任主体等问题。', '媒体使用生成式工具生成初稿时，保留人工核验、来源标注和发布前责任人制度。', '不能把治理等同于一味禁止，也不能只依赖平台自动审核，应结合风险分级、透明披露、人工复核与申诉机制。'),
   makeCard('sim-algorithm-transparency', '算法透明度', '网络传播', '重点', ['模拟'], '模拟题｜参考高校真题命题方式改编：什么是算法透明度？为什么平台治理需要算法透明？', '算法透明度是平台以可理解、可核验的方式说明算法目标、主要变量、排序逻辑、风险控制和用户权利的程度。', '透明并不意味着公开全部源代码，而是让用户、监管者和研究者知道系统如何影响可见性、推荐和决策，并能进行解释与纠偏。', '平台说明推荐依据、提供“为什么看到这条”和关闭个性化推荐的入口。', '透明要兼顾商业秘密、隐私和安全；如果只有说明书而没有申诉、审计与实际选择权，透明就难以转化为问责。'),
@@ -181,12 +185,12 @@ const simulationCards = [
 }));
 
 const moduleMeta = [
-  { key: '新闻学', tone: 'violet', icon: 'news', summary: '新闻本体、职业规范与公共性', terms: ['把关人', '跑线记者', '新闻客观性', '网络议程设置', '新闻价值', '新闻框架', '解释性报道', '社会责任论', '建设性新闻', '建设性监督', '新闻职业伦理', '新闻专业主义', '数据新闻', '事实核查', '拟态环境', '新闻生产社会学', '新闻真实性', '议程融合', '新闻来源', '新闻评论', '深度报道', '新闻自由', '公共新闻', '新闻体制'], representatives: '新闻价值 · 新闻框架 · 职业伦理' },
-  { key: '传播学', tone: 'mint', icon: 'network', summary: '受众、效果与群体传播机制', terms: ['群体极化', '敌意媒体效应', '使用与满足', '精细可能性加工模型', '选择性接触与选择性知觉', '传播效果', '意见领袖', '分众', '受众参与', '第三人效果', '元传播', '议程设置', '受众商品论', '媒介依赖理论', '两级传播', '沉默的螺旋', '知沟假说', '培养理论', '认知失调', '传播模式', '传播网络', '逆反心理'], representatives: '使用与满足 · 传播效果 · 意见领袖' },
-  { key: '网络传播', tone: 'sky', icon: 'algorithm', summary: '平台、算法与网络信息生态', terms: ['回音室、信息茧房与过滤气泡', '错误信息与虚假信息', '网络暴力', '媒介的技术可供性', '智能媒介素养', '算法新闻', '媒介融合', '媒介素养', '算法抵抗', '数字鸿沟', '平台化', '深度合成', '多模态传播', '网络舆论', '平台治理', '社交媒体', '算法偏见', '网络社群', '网络直播', '短视频传播', '数字身份'], representatives: '信息茧房 · 算法抵抗 · 媒介素养' },
+  { key: '新闻学', tone: 'violet', icon: 'news', summary: '新闻本体、职业规范与公共性', terms: ['把关人', '跑线记者', '新闻客观性', '网络议程设置', '新闻价值', '新闻框架', '解释性报道', '社会责任论', '建设性新闻', '建设性监督', '新闻职业伦理', '新闻专业主义', '数据新闻', '事实核查', '拟态环境', '新闻生产社会学', '新闻真实性', '议程融合', '新闻来源', '新闻评论', '深度报道', '新闻自由', '公共新闻', '新闻体制', '新闻回避', '新闻敏感', '新闻跳笔', '新闻策展', '新闻特写', '新闻由头', '潜网', '新闻优化'], representatives: '新闻价值 · 新闻框架 · 职业伦理' },
+  { key: '传播学', tone: 'mint', icon: 'network', summary: '受众、效果与群体传播机制', terms: ['群体极化', '敌意媒体效应', '使用与满足', '精细可能性加工模型', '选择性接触与选择性知觉', '传播效果', '意见领袖', '分众', '受众参与', '第三人效果', '元传播', '议程设置', '受众商品论', '媒介依赖理论', '两级传播', '沉默的螺旋', '知沟假说', '培养理论', '认知失调', '传播模式', '传播网络', '逆反心理', '传播', '人内传播', '组织传播', '大众传播', '人际传播', '社会信息系统', '双重偶然性', '传播障碍', '传播隔阂', '5W模式', '香农—韦弗数学模式', '德弗勒互动过程模式', '施拉姆大众传播模式', '基模理论', '群体传播', '群体规范', '群体压力', '群体感染', '群体模仿', '流言', '拉斯韦尔三功能说', '赖特四功能说', '麻醉作用', '大众社会理论', 'IPP指数', '魔弹论', '传播流', '政治既有倾向假说', '中介因素论', '休眠效果', '一面提示与两面提示', '免疫效果', '警钟效果', '导向需求', '属性议程设置', '反沉默的螺旋', '意见环境'], representatives: '使用与满足 · 传播效果 · 意见领袖' },
+  { key: '网络传播', tone: 'sky', icon: 'algorithm', summary: '平台、算法与网络信息生态', terms: ['回音室、信息茧房与过滤气泡', '错误信息与虚假信息', '网络暴力', '媒介的技术可供性', '智能媒介素养', '算法新闻', '媒介融合', '媒介素养', '算法抵抗', '数字鸿沟', '平台化', '深度合成', '多模态传播', '网络舆论', '平台治理', '社交媒体', '算法偏见', '网络社群', '网络直播', '短视频传播', '数字身份', '信息社会', '信息爆炸', '数字化生存', '数智化融合', '媒介赋权', '媒介依存症', '算法黑箱', '元宇宙', '协同过滤', '平台社会', '算法社会', '可视化', 'SNS', '强关系', '弱关系'], representatives: '信息茧房 · 算法抵抗 · 媒介素养' },
   { key: '广告学', tone: 'peach', icon: 'ad', summary: '广告策略、品牌与数字营销', terms: ['计算广告', '户外广告与网络广告协同', '网络行为定向广告', '品牌与 IP', '原生广告', '品牌', 'AIDMA 与 4C', '私域营销', '广告诉求', '生活方式营销', '品牌资产', '广告伦理', '公共关系', '事件营销'], representatives: '计算广告 · 品牌 IP · 原生广告' },
   { key: '健康传播', tone: 'green', icon: 'health', summary: '健康信息、风险与行为干预', terms: ['科学传播', '健康信念模型', '风险社会', '计划行为理论', '社会支持', '健康传播', '风险感知', '健康不平等', '疾病叙事'], representatives: '科学传播 · 风险沟通 · 健康行为' },
-  { key: '媒介文化', tone: 'rose', icon: 'culture', summary: '文化理论、媒介环境与意义生产', terms: ['编码 / 解码', '意识形态国家机器', '媒介环境学', '景观社会', '符号互动论', '文化工业', '文化挪用', '情动理论', '数字劳动', '文化表征', '技术决定论', '文化记忆', '媒介化', '符号互动', '社会建构论', '参与式文化', '符号消费', '拟剧论', '文化资本', '媒介仪式', '媒介考古'], representatives: '编码 / 解码 · 文化记忆 · 社会建构' },
+  { key: '媒介文化', tone: 'rose', icon: 'culture', summary: '文化理论、媒介环境与意义生产', terms: ['编码 / 解码', '意识形态国家机器', '媒介环境学', '景观社会', '符号互动论', '文化工业', '文化挪用', '情动理论', '数字劳动', '文化表征', '技术决定论', '文化记忆', '媒介化', '符号互动', '社会建构论', '参与式文化', '符号消费', '拟剧论', '文化资本', '媒介仪式', '媒介考古', '符号', '意义', '象征行为', '共通的意义空间', '能指与所指', '米德“主我与客我”', '电视人', '容器人', '媒介偏向', '媒介批评'], representatives: '编码 / 解码 · 文化记忆 · 社会建构' },
   { key: '研究方法', tone: 'amber', icon: 'research', summary: '测量、抽样与传播研究设计', terms: ['信度与效度', '面板研究', '样本饱和与理论饱和', '内容分析', '混合研究'], representatives: '信度效度 · 内容分析 · 面板研究' },
   { key: '国际传播', tone: 'indigo', icon: 'global', summary: '跨文化表达、中国叙事与传播力', terms: ['跨媒介叙事', '地球村', '国际传播', '国家形象', '跨文化传播', '国际话语权'], representatives: '跨媒介叙事 · 国际传播 · 中国叙事' }
 ];
@@ -296,7 +300,7 @@ function renderShell(content) {
         ${navItem('real', '真题自测', 'test')}
         ${navItem('simulate', '模拟测试', 'simulate')}
       </nav>
-      <div class="sidebar-footer"><div class="mini-progress"><div class="mini-progress-head"><span>核心题库</span><b>${cards.length} 词</b></div><div class="progress-track"><i style="width:${scorePercent()}%"></i></div><small>${scorePercent()}% 已掌握</small></div><div class="source-mini">资料状态 <span class="dot"></span> 核心可用</div></div>
+      <div class="sidebar-footer"><div class="mini-progress"><div class="mini-progress-head"><span>当前题库</span><b>${cards.length} 词</b></div><div class="progress-track"><i style="width:${scorePercent()}%"></i></div><small>${scorePercent()}% 已掌握</small></div><div class="source-mini">资料状态 <span class="dot"></span> 核心可用</div></div>
     </aside>
     <main class="main-content">
       <header class="topbar"><div><p class="eyebrow">SHENZHEN UNIVERSITY · 440</p><h1>${currentLabel}</h1></div><div class="topbar-actions"><span class="sync-label"><span class="sync-dot"></span>已自动保存</span><button class="avatar" aria-label="学习者账户">研</button></div></header>
@@ -312,7 +316,7 @@ function renderHome() {
   return renderShell(`<section class="page page-home">
     <div class="hero-grid"><div class="hero-card"><div class="hero-copy"><span class="label-pill purple">今日学习 · ${new Date().toLocaleDateString('zh-CN', { month: 'long', day: 'numeric' })}</span><h2>把概念讲清楚，<br><em>把答案写出来。</em></h2><p>从真题出发，按“定义—机制—例子—边界”四句式，建立你的新闻传播知识网络。</p><div class="hero-actions"><button class="primary-btn" data-action="view" data-view="cards">开始背诵 ${icon('arrow')}</button><button class="ghost-btn" data-action="view" data-view="real">去做真题</button></div></div><div class="hero-orbit" aria-hidden="true"><div class="orbit-ring ring-one"></div><div class="orbit-ring ring-two"></div><div class="orbit-core"><strong>${scorePercent()}%</strong><span>掌握度</span></div><span class="orbit-tag tag-a">440</span><span class="orbit-tag tag-b">2020—26</span><span class="orbit-tag tag-c">4 句式</span></div></div>
     <div class="streak-card"><div class="streak-icon">${icon('star')}</div><span class="label-pill green">学习状态</span><strong>${masteredCount() > 0 ? '节奏不错，继续保持' : '今天从 10 个概念开始'}</strong><p>已标记会了 ${masteredCount()} / ${cards.length} 个概念</p><button class="text-btn" data-action="view" data-view="cards">查看进度 ${icon('arrow')}</button></div></div>
-    <div class="metric-grid"><div class="metric-card"><span class="metric-icon purple-bg">${icon('cards')}</span><div><b>${cards.length}</b><span>核心词条</span></div><small>已覆盖 2020—2026</small></div><div class="metric-card"><span class="metric-icon green-bg">${icon('check')}</span><div><b>${masteredCount()}</b><span>已掌握</span></div><small>${scorePercent()}% 掌握率</small></div><div class="metric-card"><span class="metric-icon amber-bg">${icon('bookmark')}</span><div><b>${favoriteCount()}</b><span>收藏重点</span></div><small>可在名词卡筛选</small></div><div class="metric-card"><span class="metric-icon coral-bg">${icon('refresh')}</span><div><b>${wrongCount()}</b><span>待复习</span></div><small>不会与错题</small></div></div>
+    <div class="metric-grid"><div class="metric-card"><span class="metric-icon purple-bg">${icon('cards')}</span><div><b>${cards.length}</b><span>题库词条</span></div><small>含 2020—2026 真题与扩展整理</small></div><div class="metric-card"><span class="metric-icon green-bg">${icon('check')}</span><div><b>${masteredCount()}</b><span>已掌握</span></div><small>${scorePercent()}% 掌握率</small></div><div class="metric-card"><span class="metric-icon amber-bg">${icon('bookmark')}</span><div><b>${favoriteCount()}</b><span>收藏重点</span></div><small>可在名词卡筛选</small></div><div class="metric-card"><span class="metric-icon coral-bg">${icon('refresh')}</span><div><b>${wrongCount()}</b><span>待复习</span></div><small>不会与错题</small></div></div>
     <div class="section-head"><div><p class="eyebrow">QUICK START</p><h2>选择今天的练习</h2></div><span class="muted-note">建议每轮 10—15 分钟</span></div>
     <div class="quick-grid"><button class="quick-card violet" data-action="view" data-view="cards"><span class="quick-number">01</span><span class="quick-icon">${icon('cards')}</span><strong>名词卡背诵</strong><p>翻卡、隐藏答案，按掌握程度做标记。</p><span class="quick-link">进入词卡 ${icon('arrow')}</span></button><button class="quick-card mint" data-action="view" data-view="real"><span class="quick-number">02</span><span class="quick-icon">${icon('test')}</span><strong>真题自测</strong><p>按年份回看 440 简答题原题语境。</p><span class="quick-link">开始自测 ${icon('arrow')}</span></button><button class="quick-card peach" data-action="view" data-view="simulate"><span class="quick-number">03</span><span class="quick-icon">${icon('simulate')}</span><strong>模拟测试</strong><p>混合抽题，按主题和难度检验输出。</p><span class="quick-link">开始模拟 ${icon('arrow')}</span></button></div>
     <div class="section-head sources-head"><div><p class="eyebrow">SOURCE NOTE</p><h2>资料边界</h2></div><button class="text-btn" data-action="show-sources">查看说明 ${icon('arrow')}</button></div>
@@ -341,7 +345,7 @@ function renderModuleCard(module) {
 
 function renderCards() {
   if (!state.activeModule) {
-    return renderShell(`<section class="page page-cards"><div class="page-intro split"><div><p class="eyebrow">RECALL DECK · ${cards.length} CARDS</p><h2>先按科目归纳，再进入词条。</h2><p>不把全部词条一次铺开。先选择一个知识模块，再在模块内搜索、筛选和复习具体概念。</p></div><div class="deck-progress"><div class="deck-progress-value"><strong>${scorePercent()}%</strong><span>核心掌握率</span></div><div class="progress-track"><i style="width:${scorePercent()}%"></i></div><small>${masteredCount()} 个会了 · ${wrongCount()} 个待复习</small></div></div>${renderFilters()}<div class="module-grid">${moduleMeta.filter((module) => filteredCards(module.key).length || (!state.filters.query && state.filters.status === '全部')).map(renderModuleCard).join('')}</div><div class="module-tip"><span>${icon('bookmark')}</span><div><strong>模块化复习</strong><p>搜索、状态和难度筛选会同步作用于科目模块；点击模块后，再进入该模块内的概念卡列表。</p></div></div></section>`);
+    return renderShell(`<section class="page page-cards"><div class="page-intro split"><div><p class="eyebrow">RECALL DECK · ${cards.length} CARDS</p><h2>先按科目归纳，再进入词条。</h2><p>不把全部词条一次铺开。先选择一个知识模块，再在模块内搜索、筛选和复习具体概念。</p></div><div class="deck-progress"><div class="deck-progress-value"><strong>${scorePercent()}%</strong><span>当前掌握率</span></div><div class="progress-track"><i style="width:${scorePercent()}%"></i></div><small>${masteredCount()} 个会了 · ${wrongCount()} 个待复习</small></div></div>${renderFilters()}<div class="module-grid">${moduleMeta.filter((module) => filteredCards(module.key).length || (!state.filters.query && state.filters.status === '全部')).map(renderModuleCard).join('')}</div><div class="module-tip"><span>${icon('bookmark')}</span><div><strong>模块化复习</strong><p>搜索、状态和难度筛选会同步作用于科目模块；点击模块后，再进入该模块内的概念卡列表。</p></div></div></section>`);
   }
   const module = moduleMeta.find((item) => item.key === state.activeModule);
   const modulePool = moduleCards(state.activeModule);
@@ -349,7 +353,7 @@ function renderCards() {
   const current = modulePool.includes(cards[state.cardIndex]) ? cards[state.cardIndex] : (list[0] || modulePool[0] || cards[0]);
   const p = progressFor(current.id);
   const moduleIndex = Math.max(0, modulePool.findIndex((card) => card.id === current.id));
-  return renderShell(`<section class="page page-cards"><div class="page-intro split"><div><button class="back-link" data-action="back-modules">${icon('back')} 返回科目模块</button><p class="eyebrow">${module?.key || '知识模块'} · ${modulePool.length} CARDS</p><h2>${module?.key || '模块'}：把概念变成自己的话。</h2><p>${module?.summary || '在模块内完成搜索、筛选和卡片复习。'}</p></div><div class="deck-progress"><div class="deck-progress-value"><strong>${scorePercent()}%</strong><span>核心掌握率</span></div><div class="progress-track"><i style="width:${scorePercent()}%"></i></div><small>${masteredCount()} 个会了 · ${wrongCount()} 个待复习</small></div></div>${renderFilters()}<div class="cards-layout"><div class="term-list"><div class="list-head"><span>${module?.key || '模块'}词条</span><b>${list.length} 个结果</b></div>${list.length ? list.map(renderCardMini).join('') : '<div class="empty-state">没有匹配的词条，试试清空筛选。</div>'}</div><div class="flashcard-wrap"><div class="flashcard ${p.status !== '未开始' ? 'has-status' : ''}"><div class="flashcard-top"><span class="label-pill purple">${current.topic} · ${current.level}</span><button class="icon-btn ${p.favorite ? 'selected' : ''}" data-action="favorite" data-id="${current.id}" aria-label="${p.favorite ? '取消收藏' : '收藏'}">${icon('bookmark')}</button></div><div class="flashcard-content"><span class="card-count">${String(moduleIndex + 1).padStart(2, '0')} / ${String(modulePool.length).padStart(2, '0')}</span><h3>${current.term}</h3><p class="question">${current.prompt}</p>${state.answerVisible ? renderAnswer(current) : `<div class="recall-prompt"><div class="recall-symbol">?</div><strong>先在脑中组织答案</strong><span>建议按定义 · 机制 · 例子 · 边界回忆</span></div>`}</div><div class="flashcard-foot"><button class="secondary-btn" data-action="toggle-answer">${state.answerVisible ? '隐藏答案' : '显示答案'} ${icon(state.answerVisible ? 'close' : 'arrow')}</button><div class="card-nav"><button class="round-btn" data-action="prev-card" aria-label="上一张">${icon('back')}</button><button class="round-btn" data-action="next-card" aria-label="下一张">${icon('arrow')}</button></div></div></div><div class="mark-panel"><span>这张卡你掌握得怎么样？</span><div class="mark-actions"><button class="mark-btn mastered ${p.status === '会了' ? 'active' : ''}" data-action="mark" data-status="会了" data-id="${current.id}">${icon('check')}会了</button><button class="mark-btn fuzzy ${p.status === '模糊' ? 'active' : ''}" data-action="mark" data-status="模糊" data-id="${current.id}">还模糊</button><button class="mark-btn unknown ${p.status === '不会' ? 'active' : ''}" data-action="mark" data-status="不会" data-id="${current.id}">不会</button></div></div><div class="source-caption"><span>${current.sourceStatus}</span><p>来源：${current.source}</p></div></div></div></section>`);
+  return renderShell(`<section class="page page-cards"><div class="page-intro split"><div><button class="back-link" data-action="back-modules">${icon('back')} 返回科目模块</button><p class="eyebrow">${module?.key || '知识模块'} · ${modulePool.length} CARDS</p><h2>${module?.key || '模块'}：把概念变成自己的话。</h2><p>${module?.summary || '在模块内完成搜索、筛选和卡片复习。'}</p></div><div class="deck-progress"><div class="deck-progress-value"><strong>${scorePercent()}%</strong><span>当前掌握率</span></div><div class="progress-track"><i style="width:${scorePercent()}%"></i></div><small>${masteredCount()} 个会了 · ${wrongCount()} 个待复习</small></div></div>${renderFilters()}<div class="cards-layout"><div class="term-list"><div class="list-head"><span>${module?.key || '模块'}词条</span><b>${list.length} 个结果</b></div>${list.length ? list.map(renderCardMini).join('') : '<div class="empty-state">没有匹配的词条，试试清空筛选。</div>'}</div><div class="flashcard-wrap"><div class="flashcard ${p.status !== '未开始' ? 'has-status' : ''}"><div class="flashcard-top"><span class="label-pill purple">${current.topic} · ${current.level}</span><button class="icon-btn ${p.favorite ? 'selected' : ''}" data-action="favorite" data-id="${current.id}" aria-label="${p.favorite ? '取消收藏' : '收藏'}">${icon('bookmark')}</button></div><div class="flashcard-content"><span class="card-count">${String(moduleIndex + 1).padStart(2, '0')} / ${String(modulePool.length).padStart(2, '0')}</span><h3>${current.term}</h3><p class="question">${current.prompt}</p>${state.answerVisible ? renderAnswer(current) : `<div class="recall-prompt"><div class="recall-symbol">?</div><strong>先在脑中组织答案</strong><span>建议按定义 · 机制 · 例子 · 边界回忆</span></div>`}</div><div class="flashcard-foot"><button class="secondary-btn" data-action="toggle-answer">${state.answerVisible ? '隐藏答案' : '显示答案'} ${icon(state.answerVisible ? 'close' : 'arrow')}</button><div class="card-nav"><button class="round-btn" data-action="prev-card" aria-label="上一张">${icon('back')}</button><button class="round-btn" data-action="next-card" aria-label="下一张">${icon('arrow')}</button></div></div></div><div class="mark-panel"><span>这张卡你掌握得怎么样？</span><div class="mark-actions"><button class="mark-btn mastered ${p.status === '会了' ? 'active' : ''}" data-action="mark" data-status="会了" data-id="${current.id}">${icon('check')}会了</button><button class="mark-btn fuzzy ${p.status === '模糊' ? 'active' : ''}" data-action="mark" data-status="模糊" data-id="${current.id}">还模糊</button><button class="mark-btn unknown ${p.status === '不会' ? 'active' : ''}" data-action="mark" data-status="不会" data-id="${current.id}">不会</button></div></div><div class="source-caption"><span>${current.sourceStatus}</span><p>来源：${current.source}</p></div></div></div></section>`);
 }
 
 function renderAnswer(card) {
@@ -380,8 +384,8 @@ function renderTest(type) {
   const isReal = type === 'real';
   const title = isReal ? '真题自测' : '模拟测试';
   const intro = isReal ? '不追求一次全对，先把真题里的概念说完整。' : '用短小、可重复的模拟轮次，把“知道”推进到“能写”。题目参考广州大学、广东外语外贸大学真题呈现出的名词解释/简答命题方向改编，具体表述已重新组织。';
-  const hero = `<div class="test-hero"><div class="test-hero-stat"><strong>${isReal ? '7' : '4'}</strong><span>${isReal ? '年真题覆盖' : '层筛选维度'}</span></div><div class="test-hero-stat"><strong>${isReal ? '440' : simulationCards.length}</strong><span>${isReal ? '专业基础' : '模拟题库'}</span></div><div class="test-hero-stat"><strong>10</strong><span>每题分值</span></div></div>`;
-  const sourceNote = isReal ? '真题自测只使用资料中已确认的深圳大学 440 概念，不扩写为其他学校原题。' : '来源说明：本区题目均标记为“模拟题｜参考高校真题命题方式改编”，参考广州大学、广东外语外贸大学真题的命题内容与组织方式，但不对应任何具体学校原题或年份。';
+  const hero = `<div class="test-hero"><div class="test-hero-stat"><strong>${isReal ? '7' : '4'}</strong><span>${isReal ? '年真题覆盖' : '层筛选维度'}</span></div><div class="test-hero-stat"><strong>${isReal ? '440' : simulationCards.length + expandedGlossary.length}</strong><span>${isReal ? '专业基础' : '模拟与扩展题库'}</span></div><div class="test-hero-stat"><strong>10</strong><span>每题分值</span></div></div>`;
+  const sourceNote = isReal ? '真题自测只使用资料中已确认的深圳大学 440 概念，不扩写为其他学校原题。' : '本区混合使用模拟题与 DOCX 整理的扩展词条；模拟题参考高校真题命题方向改编，扩展词条均标注资料来源，不对应任何具体学校原题或年份。';
   const setup = `${testSetup(type)}<div class="test-note"><span>${icon('bookmark')}</span><div><strong>${isReal ? '评分说明' : '模拟题来源与评分说明'}</strong><p>${sourceNote} 模拟测试按 2 / 1 / 0 分计算，任何“不会”都会进入错题复习。</p></div></div>`;
   return renderShell(`<section class="page page-test"><div class="page-intro"><p class="eyebrow">${isReal ? 'PAST PAPERS' : 'PRACTICE MODE'}</p><h2>${title}</h2><p>${intro}</p></div>${test ? renderActiveTest(test) : hero + setup}</section>`);
 }
@@ -389,7 +393,8 @@ function renderTest(type) {
 function startTest(type) {
   const size = Number(document.querySelector('[data-test="size"]')?.value || 10);
   const realCards = cards.filter((card) => card.years.some((year) => /^(2020|2021|2022|2023|2024|2025|2026)$/.test(year)));
-  let pool = type === 'real' ? [...realCards] : [...simulationCards];
+  const practiceCards = [...simulationCards, ...expandedGlossary];
+  let pool = type === 'real' ? [...realCards] : practiceCards;
   if (type === 'real') {
     const year = document.querySelector('[data-test="year"]')?.value || 'all';
     if (year !== 'all') pool = pool.filter((card) => card.years.includes(year));
@@ -399,7 +404,7 @@ function startTest(type) {
     if (topic !== 'all') pool = pool.filter((card) => card.topic === topic);
     if (level !== 'all') pool = pool.filter((card) => card.level === level);
   }
-  if (!pool.length) pool = type === 'real' ? [...realCards] : [...simulationCards];
+  if (!pool.length) pool = type === 'real' ? [...realCards] : practiceCards;
   state.activeTest = { type, questions: shuffle(pool).slice(0, Math.min(size, pool.length)), index: 0, answers: {}, score: 0 };
   persist();
   render();
@@ -463,7 +468,7 @@ function render() {
 
 function handleAction(action, target) {
   if (action === 'view') setView(target.dataset.view);
-  if (action === 'show-sources') showToast('扫描 PDF 尚未完整 OCR，当前核心题库不代表全部 300 词。');
+  if (action === 'show-sources') showToast('《传播学+网传名词解释.docx》整理词条已并入题库；扫描 PDF 仍待完整 OCR 与校对。');
   if (action === 'open-module') openModule(target.dataset.module);
   if (action === 'back-modules') { state.activeModule = null; state.filters.topic = '全部'; persist(); render(); }
   if (action === 'open-card') openCard(target.dataset.id);
